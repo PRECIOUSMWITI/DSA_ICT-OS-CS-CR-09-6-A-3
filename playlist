@@ -1,0 +1,72 @@
+class Song {
+    String title;
+    String artist;
+    Song next; 
+
+    public Song(String title, String artist) {
+        this.title = title;
+        this.artist = artist;
+        this.next = null;
+    }
+
+    @Override
+    public String toString() {
+        return "Now Playing: " + title + " by " + artist;
+    }
+}
+
+class Playlist {
+    private Song head;
+    
+    public void addSong(String title, String artist) {
+        Song newSong = new Song(title, artist);
+        
+        if (head == null) {
+            head = newSong;
+        } else {
+            Song current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newSong;
+        }
+        System.out.println("Added: " + title);
+    }
+
+    public void displayPlaylist() {
+        if (head == null) {
+            System.out.println("The playlist is empty.");
+            return;
+        }
+        
+        Song current = head;
+        System.out.println("\n--- Your Playlist ---");
+        while (current != null) {
+            System.out.println(current.title + " (" + current.artist + ")");
+            current = current.next;
+        }
+        System.out.println("----------------------\n");
+    }
+
+    
+    public void playAll() {
+        Song current = head;
+        while (current != null) {
+            System.out.println(current);
+            current = current.next;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Playlist myHits = new Playlist();
+
+        myHits.addSong("Bohemian Rhapsody", "Queen");
+        myHits.addSong("Blinding Lights", "The Weeknd");
+        myHits.addSong("Stay", "The Kid LAROI");
+
+        myHits.displayPlaylist();
+        myHits.playAll();
+    }
+}
